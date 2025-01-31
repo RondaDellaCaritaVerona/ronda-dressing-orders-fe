@@ -1,9 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const LoginPage: React.FC = () => {
+
+  const navigate = useNavigate();
+
   const handleLogin = () => {
     // Authentication logic here
     console.log('Logged in');
+    navigate('/list');
   };
 
   return (
@@ -12,7 +18,7 @@ const LoginPage: React.FC = () => {
       <form onSubmit={handleLogin}>
         <input type="email" placeholder="Email" required />
         <input type="password" placeholder="Password" required />
-        <button type="submit">Login</button>
+        <button type="submit" onClick={handleLogin}>Login</button>
       </form>
     </div>
   );
