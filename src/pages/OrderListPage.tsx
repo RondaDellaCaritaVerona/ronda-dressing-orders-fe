@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchFilter from '../components/SearchFilter';
 
@@ -6,30 +6,45 @@ const OrderListPage: React.FC = () => {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
-  const orders = [
+  const orders = useMemo(() => [  
     { orderId: 1, customerName: 'John Doe', clothes: ['Giacca', 'Jeans'], orderState: 'Da preparare' },
     { orderId: 2, customerName: 'Jane Smith', clothes: ['Maglietta', 'Scarpe'], orderState: 'Consegnato' },
     { orderId: 3, customerName: 'Samuel Green', clothes: ['Giacca'], orderState: 'Reso' },
     { orderId: 4, customerName: 'Linda White', clothes: ['Scarpe'], orderState: 'A scaffale' },
-  ];
+  ], []);
+
+  // State for keyword and state filter
+  const [filters, setFilters] = useState({ keyword: '', state: 'All' });
+
+  // Memoize the filtered orders based on filters
+  const filteredOrders = useMemo(() => {
+    const { keyword, state } = filters;
+    return orders.filter((order) => {
+      const stateMatch = state === 'All' || order.orderState === state;
+      const keywordMatch =
+        order.customerName.toLowerCase().includes(keyword.toLowerCase()) ||
+        order.orderId.toString().includes(keyword);
+
+      return stateMatch && keywordMatch;
+    });
+  }, [orders, filters]); // Recalculate only when orders or filters change
 
   const handleCreate = () => {
     console.log('Create');
     navigate('/create');
   };
 
-  useEffect(() => {
-    // TODO Fetch orders
-  }, []);
-
-
+  // Memoize handleSearch function to avoid unnecessary re-renders
+  const handleSearch = useCallback((newFilters: { keyword: string; state: string }) => {
+    setFilters(newFilters);
+  }, []); // Only recreate the function once
 
   return (
     <div style={styles.pageContainer}>
       <h1>Lista Ordini</h1>
+      <button onClick={handleCreate}>Crea Ordine</button>
       <div style={styles.searchCreateContainer}>
-        <SearchFilter onSearch={(filters) => console.log(filters)} />
-        <button onClick={handleCreate}>Crea Ordine</button>
+        <SearchFilter onSearch={handleSearch} />
       </div>
       <div style={styles.tableContainer}>
         <table style={styles.table} border={1} cellPadding={10} cellSpacing={0}>
@@ -42,7 +57,7 @@ const OrderListPage: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
+            {filteredOrders.map((order) => (
               <tr key={order.orderId}>
                 <td style={styles.thTd}>{order.orderId}</td>
                 <td style={styles.thTd}>{order.customerName}</td>
