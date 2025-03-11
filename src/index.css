@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+:root {
+    /* Primary colors */
+    --blue: #0097d0;
+    --yellow: #ff9a10;
+    --green: #00b356;
+    --red: #d75235;
+    /* Neutral colors */
+    --white: #ffffff;
+    --black: #000000;
+    --light-gray: #f5f5f5;
+    --medium-gray: #cccccc;
+    --dark-gray: #666666;
+    /* State colors */
+    --success: var(--green);
+    --warning: var(--yellow);
+    --error: var(--red);
+    --info: var(--blue);
+    /* Text colors */
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-disabled: #999999;
+}
+
+html {
+    background-color: var(--blue);
+    /* Light gray background - you can change this to any color you want */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Slab', serif;
+}
+
+body p,
+input {
+    font-family: 'Roboto Slab', serif;
+}
+
+button {
+    font-family: 'Roboto Slab', serif;
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.blue-background h1 {
+    color: white;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.gap-10 {
+    gap: 10px;
+}
+
+.gap-20 {
+    gap: 20px;
+}
+
+button.blue-outline {
+    background-color: var(--blue);
+    color: white;
+    border: 2px solid white;
+}
+
+form {
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid var(--blue);
+    height: 40px;
+    text-indent: 10px;
+}
+
+.login-page form {
+    max-width: 350px;
+}
+
+.login-page form button[type="submit"] {
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 8px;
+    text-transform: uppercase;
+}
+
+.login-page form input::placeholder {
+    color: var(--blue);
+    text-transform: uppercase;
+}

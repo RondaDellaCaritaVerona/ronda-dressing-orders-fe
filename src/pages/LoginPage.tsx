@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button';
+
 
 
 const LoginPage: React.FC = () => {
@@ -13,13 +15,20 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
+    <div className="page-container blue-background login-page">
+      <h1>Guardaroba login</h1>
+      <form className="flex-column gap-20" onSubmit={handleLogin}>
         <input type="email" placeholder="Email" required />
         <input type="password" placeholder="Password" required />
-        <button type="submit" onClick={handleLogin}>Login</button>
+        <button className="blue-outline" type="submit" onClick={handleLogin}>Login</button>
       </form>
+      
+      <Button text="Blue button" variant="blue" onClick={() => alert('Button clicked!')} />
+      <Button text="Yellow button" variant="yellow" onClick={() => alert('Button clicked!')} />
+      <Button text="Green button" variant="green" onClick={() => alert('Button clicked!')} />
+      <Button text="Red button" variant="red" onClick={() => alert('Button clicked!')} />
+
+
     </div>
   );
 };
