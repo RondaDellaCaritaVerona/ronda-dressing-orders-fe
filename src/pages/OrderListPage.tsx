@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchFilter from '../components/SearchFilter';
+import Header from '../components/Header';
+import Button from '../components/Button';
 
 const OrderListPage: React.FC = () => {
   const [items, setItems] = useState([]);
@@ -40,33 +42,44 @@ const OrderListPage: React.FC = () => {
   }, []); // Only recreate the function once
 
   return (
-    <div style={styles.pageContainer}>
-      <h1>Lista Ordini</h1>
-      <button onClick={handleCreate}>Crea Ordine</button>
-      <div style={styles.searchCreateContainer}>
-        <SearchFilter onSearch={handleSearch} />
-      </div>
-      <div style={styles.tableContainer}>
-        <table style={styles.table} border={1} cellPadding={10} cellSpacing={0}>
-          <thead>
-            <tr>
-              <th style={styles.th}>Numero</th>
-              <th style={styles.th}>Ospite</th>
-              <th style={styles.th}>Oggetti</th>
-              <th style={styles.th}>Stato</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredOrders.map((order) => (
-              <tr key={order.orderId}>
-                <td style={styles.thTd}>{order.orderId}</td>
-                <td style={styles.thTd}>{order.customerName}</td>
-                <td style={styles.thTd}>{order.clothes.join(', ')}</td>
-                <td style={styles.thTd}>{order.orderState}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div>
+      <Header />
+      <div className='page white-background'>
+        <div className='page-container' style={styles.pageContainer}>
+          
+          <button onClick={handleCreate}>Crea Ordine</button>
+          <Button text="Blue button" variant="blue" onClick={() => alert('Button clicked!')} />
+          <Button text="Yellow button" variant="yellow" onClick={() => alert('Button clicked!')} />
+          <Button text="Green button" variant="green" onClick={() => alert('Button clicked!')} />
+          <Button text="Red button" variant="red" onClick={() => alert('Button clicked!')} />
+      
+
+          <div style={styles.searchCreateContainer}>
+            <SearchFilter onSearch={handleSearch} />
+          </div>
+          <div style={styles.tableContainer}>
+            <table style={styles.table} border={1} cellPadding={10} cellSpacing={0}>
+              <thead>
+                <tr>
+                  <th style={styles.th}>Numero</th>
+                  <th style={styles.th}>Ospite</th>
+                  <th style={styles.th}>Oggetti</th>
+                  <th style={styles.th}>Stato</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredOrders.map((order) => (
+                  <tr key={order.orderId}>
+                    <td style={styles.thTd}>{order.orderId}</td>
+                    <td style={styles.thTd}>{order.customerName}</td>
+                    <td style={styles.thTd}>{order.clothes.join(', ')}</td>
+                    <td style={styles.thTd}>{order.orderState}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -74,7 +87,7 @@ const OrderListPage: React.FC = () => {
 
 const styles: { [key: string]: React.CSSProperties } = {
   pageContainer: {
-    padding: '20px',
+    padding: '0px',
   },
   searchCreateContainer: {
     display: 'flex',
