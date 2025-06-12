@@ -26,14 +26,18 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ onSearch }) => {
 
   return (
     <div style={styles.container}>
-      <input
-        type="text"
-        placeholder="Search by ID, name, etc..."
-        value={keyword}
-        onChange={(e) => setKeyword(e.target.value)} // Update keyword state on each change
-        style={styles.input}
-      />
-
+      
+      <select
+        value={state}
+        onChange={(e) => setState(e.target.value)} // Update state on each change
+        style={styles.select}
+      >
+        {orderStates.map((status) => (
+          <option key={status} value={status}>
+            {status}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };

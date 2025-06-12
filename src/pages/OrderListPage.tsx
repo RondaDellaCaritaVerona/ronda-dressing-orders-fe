@@ -1,12 +1,19 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchFilter from '../components/SearchFilter';
+import StatusFilter from '../components/StatusFilter';
 import Header from '../components/Header';
 import Button from '../components/Button';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import AddIcon from '@mui/icons-material/Add';
+import SearchIcon from '@mui/icons-material/Search';
 
-const OrderListPage: React.FC = () => {
+
+  const OrderListPage: React.FC = () => {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const orders = useMemo(() => [  
     { orderId: 1, customerName: 'John Doe', clothes: ['Giacca', 'Jeans'], orderState: 'Da preparare' },
@@ -41,22 +48,31 @@ const OrderListPage: React.FC = () => {
     setFilters(newFilters);
   }, []); // Only recreate the function once
 
+  const handleOpen = () => setModalOpen(true);
+  const handleClose = () => setModalOpen(false);
+
   return (
     <div>
       <Header />
       <div className='page white-background'>
         <div className='page-container' style={styles.pageContainer}>
           
-          <button onClick={handleCreate}>Crea Ordine</button>
-          <Button text="Blue button" variant="blue" onClick={() => alert('Button clicked!')} />
-          <Button text="Yellow button" variant="yellow" onClick={() => alert('Button clicked!')} />
-          <Button text="Green button" variant="green" onClick={() => alert('Button clicked!')} />
-          <Button text="Red button" variant="red" onClick={() => alert('Button clicked!')} />
-      
-
-          <div style={styles.searchCreateContainer}>
-            <SearchFilter onSearch={handleSearch} />
+          <div className='button-container flex gap-20'>
+            <Button onClick={handleCreate} text="Nuovo ordine" variant="green" icon={<AddIcon sx={{ fontSize: '1.5rem', color: 'white' }} />}/>
+            <Button text="Nuova tessera" variant="red" icon={<AddIcon sx={{ fontSize: '1.5rem', color: 'white' }} />} /> 
+            <Button onClick={handleOpen} text="Ricerca" variant="yellow" icon={<SearchIcon sx={{ fontSize: '1.5rem', color: 'white' }} />}/>
+            
+            <Modal open={modalOpen} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+              <Box sx={modalStyle}>
+              <div style={styles.searchCreateContainer}>
+                <SearchFilter onSearch={handleSearch} />
+              </div>
+              </Box>
+            </Modal>
           </div>
+          
+          <StatusFilter onSearch={handleSearch} />
+
           <div style={styles.tableContainer}>
             <table style={styles.table} border={1} cellPadding={10} cellSpacing={0}>
               <thead>
@@ -110,6 +126,19 @@ const styles: { [key: string]: React.CSSProperties } = {
   th: {
     backgroundColor: '#f4f4f4',
   },
+};
+
+
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
 };
 
 export default OrderListPage;

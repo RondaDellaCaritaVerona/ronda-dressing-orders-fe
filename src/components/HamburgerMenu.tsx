@@ -150,6 +150,7 @@ const HamburgerMenu: React.FC = () => {
       >
         <MenuIcon />
       </IconButton>
+      
       {(['left', 'right', 'top', 'bottom'] as const).map((anchor) => (
         <React.Fragment key={anchor}>
           <SwipeableDrawer

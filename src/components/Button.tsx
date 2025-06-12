@@ -5,13 +5,15 @@ interface ButtonProps {
   onClick?: () => void;
   variant?: 'blue' | 'yellow' | 'green' | 'red' | 'blueOutline';
   disabled?: boolean;
+  icon?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
   text,
   onClick,
   variant = 'blue',
-  disabled = false
+  disabled = false,
+  icon,
 }) => {
   const baseStyles = {
     padding: '8px 16px',
@@ -21,6 +23,10 @@ const Button: React.FC<ButtonProps> = ({
     fontSize: '16px',
     fontWeight: 500,
     opacity: disabled ? 0.7 : 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
   };
 
   const variantStyles = {
@@ -56,6 +62,7 @@ const Button: React.FC<ButtonProps> = ({
         ...variantStyles[variant],
       }}
     >
+      {icon && <span>{icon}</span>}
       {text}
     </button>
   );

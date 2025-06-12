@@ -1,6 +1,7 @@
 import * as React from 'react';
 import HamburgerMenu from './HamburgerMenu';
 import logoronda from '../logo-ronda.svg';
+import Button from '../components/Button';
 
 const Header: React.FC = () => {
   return (
